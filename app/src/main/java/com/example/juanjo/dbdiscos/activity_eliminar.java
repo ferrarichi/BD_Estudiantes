@@ -23,7 +23,6 @@ public class activity_eliminar extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton rbEstudiante, rbProfesor;
     boolean estudiante;
-    boolean todo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class activity_eliminar extends AppCompatActivity {
         rbProfesor = (RadioButton) findViewById(R.id.EliminarProfesor);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroupEliminar);
         estudiante = true;
-        todo = false;
 
         //Cargamos Base de datos SQLite
         dbAdapter = new MyDBAdapter(this);
@@ -75,12 +73,6 @@ public class activity_eliminar extends AppCompatActivity {
 
 
     public void refrescarVista(){
-        //Borrar Todo
-        if (todo){
-            txtTitulo.setText("ELIMINAR TODO");
-            radioGroup.setVisibility(View.GONE);
-            editID.setVisibility(View.GONE);
-        } else {
             //Estudiante / Profesor
             if (estudiante) {
                 txtTitulo.setText("Eliminar Estudiante");
@@ -89,7 +81,7 @@ public class activity_eliminar extends AppCompatActivity {
             }
             radioGroup.setVisibility(View.VISIBLE);
             editID.setVisibility(View.VISIBLE);
-        }
+
     }
 
     private void borrarEstudiante() {
