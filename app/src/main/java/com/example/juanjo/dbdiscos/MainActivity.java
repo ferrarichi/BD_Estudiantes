@@ -63,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
         try {
             estudiantes = dbAdapter.contarRegistrosEstudiantes();
         }catch (Exception e){
-            Log.w("#TEMP","Error primo!");
+            Log.w("#TEMP","Error!");
         }
         txtCountEstudiantes.setText("Estudiantes: " + estudiantes);
         int profesores = 0;
         try {
             profesores = dbAdapter.contarRegistrosProfesores();
         }catch (Exception e){
-            Log.w("#TEMP","Error primo!");
+            Log.w("#TEMP","Error!");
         }
         txtCountProfesores.setText("Profesores: " + profesores);
     }
