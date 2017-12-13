@@ -13,6 +13,8 @@ import android.util.Log;
 import com.example.juanjo.dbdiscos.Objetos.Estudiante;
 import com.example.juanjo.dbdiscos.Objetos.Profesor;
 
+import java.util.ArrayList;
+
 /**
  * Created by jmalberola.
  */
@@ -140,5 +142,85 @@ public class MyDBAdapter {
             onCreate(db);
         }
 
+    }
+
+    public ArrayList<Estudiante> llenarEstudiantes(){
+        Cursor cursorEstudiantes = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_ESTUDIANTES + ";",null);
+        ArrayList<Estudiante> todosEstudiantes = new ArrayList<Estudiante>();
+
+        if (cursorEstudiantes.moveToFirst()) {
+            do {
+                String nombre = cursorEstudiantes.getString(1);
+                int edad = cursorEstudiantes.getInt(2);
+                String ciclo = cursorEstudiantes.getString(3);
+                String curso = cursorEstudiantes.getString(4);
+                float nota = cursorEstudiantes.getFloat(5);
+
+                Estudiante nuevo = new Estudiante(nombre,edad,ciclo,curso,nota);
+                todosEstudiantes.add(nuevo);
+            } while (cursorEstudiantes.moveToNext());
+        }
+
+        return todosEstudiantes;
+    }
+
+    public ArrayList<Estudiante> filtroEstudiantes(String filtros){
+        Cursor cursorEstudiantes = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_ESTUDIANTES + filtros + ";",null);
+        ArrayList<Estudiante> todosEstudiantes = new ArrayList<Estudiante>();
+
+        if (cursorEstudiantes.moveToFirst()) {
+            do {
+                String nombre = cursorEstudiantes.getString(1);
+                int edad = cursorEstudiantes.getInt(2);
+                String ciclo = cursorEstudiantes.getString(3);
+                String curso = cursorEstudiantes.getString(4);
+                float nota = cursorEstudiantes.getFloat(5);
+
+                Estudiante nuevo = new Estudiante(nombre,edad,ciclo,curso,nota);
+                todosEstudiantes.add(nuevo);
+            } while (cursorEstudiantes.moveToNext());
+        }
+
+        return todosEstudiantes;
+    }
+
+    public ArrayList<Profesor> llenarProfesores(){
+        Cursor cursorEstudiantes = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_PROFESORES + ";",null);
+        ArrayList<Profesor> todosEstudiantes = new ArrayList<Profesor>();
+
+        if (cursorEstudiantes.moveToFirst()) {
+            do {
+                String nombre = cursorEstudiantes.getString(1);
+                int edad = cursorEstudiantes.getInt(2);
+                String ciclo = cursorEstudiantes.getString(3);
+                String curso = cursorEstudiantes.getString(4);
+                String despacho = cursorEstudiantes.getString(5);
+
+                Profesor nuevo = new Profesor(nombre,edad,ciclo,curso,despacho);
+                todosEstudiantes.add(nuevo);
+            } while (cursorEstudiantes.moveToNext());
+        }
+
+        return todosEstudiantes;
+    }
+
+    public ArrayList<Profesor> filtroProfesores(String filtros){
+        Cursor cursorProfesores = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_PROFESORES + filtros + ";",null);
+        ArrayList<Profesor> todoProfesores = new ArrayList<Profesor>();
+
+        if (cursorProfesores.moveToFirst()) {
+            do {
+                String nombre = cursorProfesores.getString(1);
+                int edad = cursorProfesores.getInt(2);
+                String ciclo = cursorProfesores.getString(3);
+                String curso = cursorProfesores.getString(4);
+                String despacho = cursorProfesores.getString(5);
+
+                Profesor nuevo = new Profesor(nombre,edad,ciclo,curso,despacho);
+                todoProfesores.add(nuevo);
+            } while (cursorProfesores.moveToNext());
+        }
+
+        return todoProfesores;
     }
 }

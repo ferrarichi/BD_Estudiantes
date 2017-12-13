@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent ventanaEliminar = new Intent(this, activity_eliminar.class);
                 startActivity(ventanaEliminar);
                 break;
+            case R.id.Buscar:
+                Intent ventanaBuscar = new Intent(this, activity_buscador.class);
+                startActivity(ventanaBuscar);
+                break;
         }
     }
 

@@ -3,7 +3,6 @@ package com.example.juanjo.dbdiscos;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +40,7 @@ public class NuevoCampo extends AppCompatActivity {
         editNota = (EditText) findViewById(R.id.editNota);
         btnGuardar = (Button) findViewById(R.id.btnGuardar);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        rbEstudiante = (RadioButton) findViewById(R.id.rbNuevoEstudiante);
+        rbEstudiante = (RadioButton) findViewById(R.id.rbCiclo);
         rbProfesor = (RadioButton) findViewById(R.id.rbNuevoProfesor);
         editDespacho = (EditText) findViewById(R.id.editDespacho);
         estudiante = true;
@@ -103,7 +102,7 @@ public class NuevoCampo extends AppCompatActivity {
         dbAdapter.insertarProfesor(nuevoProfesor);
         dbAdapter.close();
 
-        Toast.makeText(getApplicationContext(),"Nuevo profesor generado",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Nuevo profesor " + nombre + " ha sido generado",Toast.LENGTH_LONG).show();
     }
 
     private void nuevoEstudiante() {
@@ -121,6 +120,6 @@ public class NuevoCampo extends AppCompatActivity {
         dbAdapter.insertarEstudiante(nuevoEstudiante);
         dbAdapter.close();
 
-        Toast.makeText(getApplicationContext(),"Nuevo estudiante generado",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Nuevo estudiante " +  nombre +" ha sido generado",Toast.LENGTH_LONG).show();
     }
 }

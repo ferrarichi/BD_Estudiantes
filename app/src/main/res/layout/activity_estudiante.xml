@@ -22,11 +22,11 @@
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checkedButton="@+id/rbNuevoEstudiante"
+        android:checkedButton="@+id/rbCiclo"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rbNuevoEstudiante"
+            android:id="@+id/rbCiclo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

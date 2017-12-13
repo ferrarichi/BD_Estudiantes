@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.juanjo.dbdiscos.activity_buscador">
+
+    <TextView
+        android:id="@+id/txtTitulo_buscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar Estudiantes y Profesores"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkBox_estudiante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Estudiante" />
+
+        <CheckBox
+            android:id="@+id/checkBox_profesor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Profesor" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_buscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/rbCiclo"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rbCiclo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ciclo" />
+
+        <RadioButton
+            android:id="@+id/rbCurso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Curso" />
+
+        <RadioButton
+            android:id="@+id/rbTodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ciclo y curso" />
+
+        <RadioButton
+            android:id="@+id/rbTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Total" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/buscarCiclo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Ciclo:"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/buscarCurso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Curso:"
+        android:inputType="textPersonName"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/buscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:text="Buscar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/EstudiantesView"
+                android:layout_width="match_parent"
+                android:layout_height="127dp" />
+
+            <ListView
+                android:id="@+id/ProfesoresView"
+                android:layout_width="match_parent"
+                android:layout_height="127dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
