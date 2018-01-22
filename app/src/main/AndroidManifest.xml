@@ -20,7 +20,7 @@
             android:name=".NuevoCampo"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".activity_eliminar" />
-        <activity android:name=".activity_buscador"></activity>
+        <activity android:name=".activity_buscador" />
     </application>
 
 </manifest>

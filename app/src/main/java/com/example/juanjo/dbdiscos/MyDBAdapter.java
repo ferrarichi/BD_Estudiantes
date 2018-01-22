@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.juanjo.dbdiscos.Objetos.Asignatura;
 import com.example.juanjo.dbdiscos.Objetos.Estudiante;
 import com.example.juanjo.dbdiscos.Objetos.Profesor;
 
@@ -24,6 +25,8 @@ public class MyDBAdapter {
     private static final String DATABASE_NAME = "dbColegio.db";
     private static final String DATABASE_TABLE_ESTUDIANTES = "estudiantes";
     private static final String DATABASE_TABLE_PROFESORES = "profesores";
+    private static final String DATABASE_TABLE_ASIGNATURAS = "asignaturas";
+
     private static final int DATABASE_VERSION = 3;
 
     //Campos
@@ -33,10 +36,14 @@ public class MyDBAdapter {
     private static final String CURSO = "curso";
     private static final String NOTA = "nota";
     private static final String DESPACHO = "despacho";
+    private static final String HORAS = "horas";
+
 
     //Orden SQL
     private static final String DATABASE_CREATE = "CREATE TABLE "+DATABASE_TABLE_ESTUDIANTES+" (id integer primary key autoincrement, nombre text,edad integer, ciclo text, curso text, nota float); ";
     private static final String DATABASE_PROFESORES = "CREATE TABLE "+DATABASE_TABLE_PROFESORES+" (id integer primary key autoincrement, nombre text,edad integer, ciclo text, curso text, despacho text);";
+    private static final String DATABASE_ASIGNATURAS = "CREATE TABLE "+DATABASE_TABLE_ASIGNATURAS+" (id integer primary key autoincrement, nombre text,horas integer);";
+
     private static final String DATABASE_DROP = "DROP DATABASE " + DATABASE_NAME + ";";
     private static final String DATABASE_DROP_ESTUDIANTES = "DROP TABLE IF EXISTS "+DATABASE_TABLE_ESTUDIANTES+";";
     private static final String DATABASE_DROP_PROFESORES = "DROP TABLE IF EXISTS "+DATABASE_TABLE_PROFESORES+";";
@@ -53,6 +60,7 @@ public class MyDBAdapter {
         dbHelper = new MyDbHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Abro la base de datos
     public void open(){
 
         try{
@@ -64,8 +72,21 @@ public class MyDBAdapter {
 
     }
 
+    //Cierro la base de datos
     public void close(){
         db.close();
+    }
+
+    public void insertarAsignatura(Asignatura asignatura){
+        //Creamos registro
+        ContentValues nuevoReg = new ContentValues();
+
+        //Asignamos campos
+        nuevoReg.put(NOMBRE,asignatura.getNombre());
+        nuevoReg.put(EDAD,asignatura.getHoras());
+
+        //Insertamos valores
+        db.insert(DATABASE_TABLE_ASIGNATURAS,null,nuevoReg);
     }
 
     public void insertarEstudiante(Estudiante estudiante){
@@ -99,6 +120,7 @@ public class MyDBAdapter {
     }
 
     public int contarRegistrosEstudiantes(){
+        //Hacemos la consulta
         Cursor cursorEstudiantes = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_ESTUDIANTES + ";",null);
         int totalEstudiantes = cursorEstudiantes.getCount();
 
@@ -106,6 +128,7 @@ public class MyDBAdapter {
     }
 
     public int contarRegistrosProfesores(){
+        //Hacemos la consulta
         Cursor cursosProfesores = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_PROFESORES + ";",null);
         int totalProfesores = cursosProfesores.getCount();
 
@@ -133,6 +156,8 @@ public class MyDBAdapter {
             Log.d("#TEMP",DATABASE_CREATE);
             db.execSQL(DATABASE_CREATE);
             db.execSQL(DATABASE_PROFESORES);
+            db.execSQL(DATABASE_ASIGNATURAS);
+
         }
 
         @Override
@@ -143,6 +168,24 @@ public class MyDBAdapter {
         }
 
     }
+
+    public ArrayList<Asignatura> llenarAsignaturas(){
+        Cursor cursorAsignaturas = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_ASIGNATURAS + ";",null);
+        ArrayList<Asignatura> todasAsignaturas = new ArrayList<Asignatura>();
+
+        if (cursorAsignaturas.moveToFirst()) {
+            do {
+                String nombre = cursorAsignaturas.getString(1);
+                int horas = cursorAsignaturas.getInt(2);
+
+                Asignatura nuevo = new Asignatura(nombre,horas);
+                todasAsignaturas.add(nuevo);
+            } while (cursorAsignaturas.moveToNext());
+        }
+
+        return todasAsignaturas;
+    }
+
 
     public ArrayList<Estudiante> llenarEstudiantes(){
         Cursor cursorEstudiantes = db.rawQuery("SELECT * FROM " + DATABASE_TABLE_ESTUDIANTES + ";",null);

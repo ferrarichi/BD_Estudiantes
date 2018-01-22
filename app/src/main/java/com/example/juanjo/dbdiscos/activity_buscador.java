@@ -13,8 +13,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.juanjo.dbdiscos.Adaptadores.AdaptadorAsignaturas;
 import com.example.juanjo.dbdiscos.Adaptadores.AdaptadorEstudiantes;
 import com.example.juanjo.dbdiscos.Adaptadores.AdaptadorProfesores;
+import com.example.juanjo.dbdiscos.Objetos.Asignatura;
 import com.example.juanjo.dbdiscos.Objetos.Estudiante;
 import com.example.juanjo.dbdiscos.Objetos.Profesor;
 
@@ -28,17 +30,19 @@ public class activity_buscador extends AppCompatActivity {
 
     ArrayList<Estudiante> estudiantes;
     ArrayList<Profesor> profesores;
+    ArrayList<Asignatura> asignaturas;
 
     AdaptadorEstudiantes adapterE;
     AdaptadorProfesores adapterP;
+    AdaptadorAsignaturas adapterA;
 
     Button btnBuscar;
     TextView txtTitulo;
     RadioGroup radioGroup;
-    CheckBox cbEstudiante, cbProfesor;
+    CheckBox cbEstudiante, cbProfesor, cbAsignaturas;
     RadioButton rbCiclo, rbCurso, rbTodo, rbTotal;
     boolean ciclo, todo, curso, total;
-    ListView listEstudiantes, listProfesores;
+    ListView listEstudiantes, listProfesores, listAsignaturas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +57,11 @@ public class activity_buscador extends AppCompatActivity {
         txtTitulo = (TextView) findViewById(R.id.txtTitulo_buscar);
         cbEstudiante = (CheckBox) findViewById(R.id.checkBox_estudiante);
         cbProfesor = (CheckBox) findViewById(R.id.checkBox_profesor);
+        cbAsignaturas = (CheckBox) findViewById(R.id.checkBox_asignaturas);
 
         estudiantes = new ArrayList<Estudiante>();
         profesores = new ArrayList<Profesor>();
+        asignaturas = new ArrayList<Asignatura>();
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup_buscar);
         rbCiclo = (RadioButton) findViewById(R.id.rbCiclo);
@@ -65,6 +71,7 @@ public class activity_buscador extends AppCompatActivity {
 
         listEstudiantes = (ListView) findViewById(R.id.EstudiantesView);
         listProfesores = (ListView) findViewById(R.id.ProfesoresView);
+        listAsignaturas = (ListView) findViewById(R.id.AsignaturasView);
 
         ciclo = false;
         curso = false;
@@ -76,6 +83,8 @@ public class activity_buscador extends AppCompatActivity {
         listEstudiantes.setAdapter(adapterE);
         adapterP = new AdaptadorProfesores(this, profesores);
         listProfesores.setAdapter(adapterP);
+        adapterA = new AdaptadorAsignaturas(this, asignaturas);
+        listAsignaturas.setAdapter(adapterA);
 
         //Cargamos Base de datos SQLite
         dbAdapter = new MyDBAdapter(this);
@@ -130,7 +139,7 @@ public class activity_buscador extends AppCompatActivity {
     }
 
     public void refrescarVista(){
-        //Estudiante / Profesor
+        //Estudiante / Profesor / Asignaturas
         if (todo){
             editCurso.setVisibility(View.VISIBLE);
             editCiclo.setVisibility(View.VISIBLE);
@@ -219,6 +228,36 @@ public class activity_buscador extends AppCompatActivity {
             listProfesores.setAdapter(adapterP);
         } else {
             listProfesores.setVisibility(View.GONE);
+        }
+
+        if (cbAsignaturas.isChecked()){
+            listAsignaturas.setVisibility(View.VISIBLE);
+
+            String filtros = " WHERE ";
+            if (editCiclo.getText().toString().length() > 0){
+
+            }
+
+            if (editCiclo.getText().toString().length() > 0 && editCurso.getText().toString().length() > 0){
+
+            }
+
+            if (editCurso.getText().toString().length() > 0){
+            }
+
+            //Evaluador FINAL de filtros
+            if (!filtros.equals(" WHERE ")){
+                //Se han modificado filtros
+
+            } else {
+                //No se han añadido filtros
+                asignaturas = dbAdapter.llenarAsignaturas();
+            }
+
+            adapterA = new AdaptadorAsignaturas(this, asignaturas);
+            listAsignaturas.setAdapter(adapterA);
+        } else {
+            listAsignaturas.setVisibility(View.GONE);
         }
 
 

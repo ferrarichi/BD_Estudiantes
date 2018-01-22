@@ -33,6 +33,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Profesor" />
+
+        <CheckBox
+            android:id="@+id/checkBox_asignaturas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Asignaturas" />
     </LinearLayout>
 
     <RadioGroup
@@ -114,6 +121,12 @@
                 android:id="@+id/ProfesoresView"
                 android:layout_width="match_parent"
                 android:layout_height="127dp" />
+
+            <ListView
+                android:id="@+id/AsignaturasView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
     </ScrollView>
 
